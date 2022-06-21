@@ -83,8 +83,18 @@ with open('old.txt', 'w') as input_file:
         input_file.write(x[1] + '\n')    
 
 relval = RelVal()
-tickets = relval.get('tickets', query='cmssw_release=*')
-print(json.dumps(tickets[0], indent = 2, sort_keys = True))
+tickets = relval.get('tickets', query='cmssw_release=*')    #taking all the tickets
+#print(json.dumps(tickets[1], indent = 2, sort_keys = True))
+
+#print(type(tickets[1]))
+
+ticket = tickets[1]
+
+for x in ticket:
+   ticket[x] = ""
+
+print(ticket)       #A ticket with no values
+
 
 #print(tickets[0].get('workflow_ids'))
 #tickets[0]["workflow_ids"] = "1"
