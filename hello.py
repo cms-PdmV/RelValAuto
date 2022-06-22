@@ -50,9 +50,6 @@ releases = get_releases()
 
 pattern = 'CMSSW(_\d{1,2}){2}_0(_pre([2-9]|(\d{2,10})))?$'
 
-
-
-
 releases = [x for x in releases if re.match(pattern, x[1])]
 
 if not os.path.exists('old.txt'):
@@ -69,39 +66,38 @@ old_str = open('old.txt', 'r')
 
 old = old_str.read().split('\n') 
 old.remove('')
-    
+ 
+
+
+   
 for x in releases:
     if x[1] not in old:
         new.append(x)
+### Sljedeca linija je iskljucivo zbog probe
+new.append(releases[-1])
+
+########################################################################################
+
+
 with open('new.txt', 'w') as output_file:
     for x in new:
         output_file.write(x[1] + '\n')
-
 
 with open('old.txt', 'w') as input_file:
     for x in releases:
         input_file.write(x[1] + '\n')    
 
 relval = RelVal()
-tickets = relval.get('tickets', query='cmssw_release=*')    #taking all the tickets
-#print(json.dumps(tickets[1], indent = 2, sort_keys = True))
+tickets = relval.get('tickets', query='cmssw_release=*')
 
-#print(type(tickets[1]))
+ticket = {}
 
-ticket = tickets[1]
+ticket['cmssw_release'] = new[0][1]
+ticket['workflow_ids'] = tickets[-1]['workflow_ids']
 
-for x in ticket:
-   ticket[x] = ""
-
-print(ticket)       #A ticket with no values
+response = relval.put('tickets', ticket)
 
 
-#print(tickets[0].get('workflow_ids'))
-#tickets[0]["workflow_ids"] = "1"
-
-#response = relval.put('tickets', tickets[0])
-
-#print(response)
 
 
 
