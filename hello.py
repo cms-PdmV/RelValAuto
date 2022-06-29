@@ -1,6 +1,7 @@
 """
 Document for blah
 """
+from platform import release
 import xml.etree.ElementTree as ET
 import requests
 import os
@@ -8,6 +9,9 @@ import re
 import sys
 import json
 from relval import RelVal
+from relmon import Relmon
+
+
 
 def get_releases():
     """
@@ -47,15 +51,23 @@ def get_releases():
 
 releases = get_releases()
 new = []
+old = []
+new_tickets = []
+
 
 def new_releases(releases):
     """
     This function checks for new releases that follow the PATTERN, checks the existance of old.txt file,
     puts new releases into new[] and new.txt and also updates old.txt file
     """
+    global old
+    global new
 
-    pattern = 'CMSSW(_\d{1,2}){2}_0(_pre([2-9]|(\d{2,10})))?$'
-
+    #pattern = 'CMSSW(_\d{1,2}){2}_0(_pre([2-9]|(\d{2,10})))?$'
+    pattern = 'CMSSW(_\d{1,2}){2}_0(_pre([2-9]|(\d{2,10})))+$'
+    
+    
+    
     releases = [x for x in releases if re.match(pattern, x[1])]
 
     if not os.path.exists('old.txt'):
@@ -68,8 +80,11 @@ def new_releases(releases):
 
     old_str = open('old.txt', 'r')
 
-    old = old_str.read().split('\n') 
+    old = old_str.read().split('\n')
     old.remove('')
+    old_sorted = sorted(old, key=lambda x: tuple(int(i) for i in x.split('_')[1:4]))
+    old = old_sorted
+
        
     for x in releases:
         if x[1] not in old:
@@ -84,8 +99,7 @@ def new_releases(releases):
 
     with open('old.txt', 'w') as input_file:
         for x in releases:
-            input_file.write(x[1] + '\n')    
-
+            input_file.write(x[1] + '\n')
 
 def relvals_creation(new):
     
@@ -95,17 +109,48 @@ def relvals_creation(new):
     else:
 
         relval = RelVal()
-        tickets = relval.get('tickets', query='cmssw_release=*')
+        #old_tickets = relval.get('tickets', query='cmssw_release=' + old[-1])
+        old_tickets = relval.get('tickets', query='cmssw_release=CMSSW_12_1_0_pre*')
+        old_tickets_sort = sorted(old_tickets, key=lambda x: tuple(int(i) for i in  x['_id'].split('pre')[1].split('__')[0]))
 
-        ticket = {}
 
-        ticket['cmssw_release'] = new[0][1]
-        ticket['workflow_ids'] = tickets[-1]['workflow_ids']
 
+        tickets_to_be_pushed = []
+
+        for old_ticket in old_tickets_sort:
+            ticket = old_ticket
+            ticket['cmssw_release'] = new[0][1]
+            #ticket['workflow_ids'] = old_ticket['workflow_ids']
+            #ticket['batch_name'] = 'VUK_TESTING'
+            print(old_ticket['cmssw_release'])
+            print(old_ticket['batch_name'])
+            print(old_ticket['matrix'])
+            print(old_ticket['workflow_ids'])
+            #ticket['matrix'] = old_ticket['matrix']
+            #tickets_to_be_pushed.append(ticket)
+            print()
+            print()
+
+        print()
+        print()
+        print(tickets_to_be_pushed)
+        print()
+        print()
+        #ticket['cmssw_release'] = new[0][1]
+        #ticket['workflow_ids'] = old_tickets[-1]['workflow_ids'] ##########################################################
+        #ticket['batch_name'] = 'TEST'
+        #ticket['matrix'] = tickets[-1]['matrix']
+
+
+       
         print('Creating a ticket for %s with ids %s' %(ticket['cmssw_release'], ticket['workflow_ids']))
 
         response = relval.put('tickets', ticket)
-
+        print()
+        print()
+        print(response)
+        print()
+        print()
         inner_response = response['response']
         ticket_prepid = inner_response['prepid']
         
@@ -117,8 +162,8 @@ def relvals_creation(new):
             print(response_relval)
             
 
-            ticket_with_relvals = tickets[-1]
-            ticket_prepid = ticket_with_relvals['prepid']
+            #ticket_with_relvals = tickets[-1]
+            #ticket_prepid = ticket_with_relvals['prepid']
 
             ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
 
@@ -130,16 +175,21 @@ def relvals_creation(new):
         except:
             print('It is not possible to either create relvals or push the status from new to submitting')
 
+
+def create_relmon():
+    relmon = Relmon()
+    new_relmon = {}
+    make_relmon = relmon.create(new_relmon)
+
 new_releases(releases)
 relvals_creation(new)
+#create_relmon()                                    
 
 
+for x in old:
+    print(x)
+for x in new:
+    print(x)                   
 
-
-
-
-
-
-
-
-
+    print()
+    print(old[-1])
