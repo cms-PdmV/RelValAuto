@@ -33,15 +33,10 @@ class MethodRequest(urllib.Request):
         return urllib.Request.get_method(self, *args, **kwargs)
 
 
-class RelVal:
-    def __init__(self, debug=False, cookie=None, dev=True):
-        if dev:
-            self.host = 'cms-pdmv-dev.cern.ch'
-        else:
-            self.host = 'cms-pdmv.cern.ch'
-
-        self.dev = dev
-        self.server = 'https://' + self.host + '/relval/'
+class Relmon:
+    def __init__(self, debug=False, cookie=None):
+        self.host = 'cms-pdmv.cern.ch'
+        self.server = 'https://' + self.host + '/relmonservice/'
         # Set up logging
         if debug:
             logging_level = logging.DEBUG
@@ -52,10 +47,7 @@ class RelVal:
             self.cookie = cookie
         else:
             home = os.getenv('HOME')
-            if dev:
-                self.cookie = '%s/private/relval-dev-cookie.txt' % (home)
-            else:
-                self.cookie = '%s/private/relval-prod-cookie.txt' % (home)
+            self.cookie = '%s/private/relmon-prod-cookie.txt' % (home)
 
         # Set up logging
         logging.basicConfig(format='[%(asctime)s][%(levelname)s] %(message)s', level=logging_level)
@@ -95,7 +87,7 @@ class RelVal:
     def __http_request(self, url, method, data=None, parse_json=True):
         url = self.server + url
         self.logger.debug('[%s] %s', method, url)
-        headers = {'User-Agent': 'RelVal Scripting'}
+        headers = {'User-Agent': 'Relmon Scripting'}
         if data:
             data = json.dumps(data).encode('utf-8')
             headers['Content-type'] = 'application/json'
@@ -198,59 +190,10 @@ class RelVal:
         else:
             self.logger.error('Neither object ID, nor query is given, doing nothing...')
 
-    def update(self, object_type, object_data):
+    def create(self, object_data):
         """
-        Update data in RelVal machine
-        object_type - [subcampaigns, tickets, requests]
-        object_data - new JSON of an object to be updated
+        Use for Relmon creation
+        object_data - dictionary of an object to be created
         """
-        url = 'api/%s/update' % (object_type)
+        url = 'api/create'
         return self.__post(url, object_data)
-
-    def put(self, object_type, object_data):
-        """
-        Put data into RelVal machine
-        object_type - [subcampaigns, tickets, requests]
-        object_data - new JSON of an object to be saved
-        """
-        url = 'api/%s/create' % (object_type)
-        res = self.__put(url, object_data)
-        return res
-
-    def delete(self, object_type, object_id):
-        """
-        Delete object from RelVal machine
-        object_type - [subcampaigns, tickets, requests]
-        object_id - object PrepID
-        """
-        url = 'api/%s/delete' % (object_type)
-        res = self.__delete(url, {'prepid': object_id})
-        return res
-
-    def next_status(self, request_prepid):
-        """
-        Move request to next status
-        """
-        url = 'api/requests/next_status'
-        res = self.__post(url, {'prepid': request_prepid})
-        return res
-
-    def previous_status(self, request_prepid):
-        """
-        Move request to previous status
-        """
-        url = 'api/requests/previous_status'
-        res = self.__post(url, {'prepid': request_prepid})
-        return res
-
-    def create_relvals(self, ticket_prepid):
-        """
-        Create relvals for the given ticket
-        """
-        url = 'api/tickets/create_relvals'
-        res = self.__post(url, {'prepid': ticket_prepid})
-        return res
-
-
-
-
