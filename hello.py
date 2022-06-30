@@ -65,10 +65,12 @@ def new_releases(releases):
 
     #pattern = 'CMSSW(_\d{1,2}){2}_0(_pre([2-9]|(\d{2,10})))?$'
     pattern = 'CMSSW(_\d{1,2}){2}_0(_pre([2-9]|(\d{2,10})))+$'
-    
+    #The regex for fetching all the pres
     
     
     releases = [x for x in releases if re.match(pattern, x[1])]
+    #This is taking away all the releases that don't match the regex
+
 
     if not os.path.exists('old.txt'):
         with open('old.txt', 'w') as output_file:
@@ -82,37 +84,42 @@ def new_releases(releases):
 
     old = old_str.read().split('\n')
     old.remove('')
-    old_sorted = sorted(old, key=lambda x: tuple(int(i) for i in x.split('_')[1:4]))
+    old_sorted = []
+    old_sorted = sorted(old, key=lambda x: tuple(int(i) for i in re.findall('\d+', x)))
+    #Sorting old releases. x is a string, example: x="CMSSW_12_1_0_pre3" and
+    #list is sorted by numbers from left to right
     old = old_sorted
 
        
     for x in releases:
         if x[1] not in old:
-            new.append(x)
+            new.append(x)           #appending new releases to the list new[]
     ### Sljedeca linija je iskljucivo zbog probe
     new.append(releases[-1])
 
 
     with open('new.txt', 'w') as output_file:
         for x in new:
-            output_file.write(x[1] + '\n')
+            output_file.write(x[1] + '\n')          #Putting new releases into file
 
     with open('old.txt', 'w') as input_file:
         for x in releases:
-            input_file.write(x[1] + '\n')
+            input_file.write(x[1] + '\n')           #Updating old releases for next iteration
 
 def relvals_creation(new):
     
-    if len(new) == 0:
+    if len(new) == 0:       #If the new releases list is empty then there are no new releases
         print('There are no new releases')
         sys.exit(1)
     else:
-
+        #Otherwise, we will need a relval class
         relval = RelVal()
-        #old_tickets = relval.get('tickets', query='cmssw_release=' + old[-1])
-        old_tickets = relval.get('tickets', query='cmssw_release=CMSSW_12_1_0_pre*')
-        old_tickets_sort = sorted(old_tickets, key=lambda x: tuple(int(i) for i in  x['_id'].split('pre')[1].split('__')[0]))
 
+        #old_tickets = relval.get('tickets', query='cmssw_release=' + old[-1])
+        old_tickets = relval.get('tickets', query='cmssw_release=CMSSW_11_2_0_pre3*')
+        #This line gets all old tickets with specified query
+        old_tickets_sort = sorted(old_tickets, key=lambda x: tuple(int(i) for i in  x['_id'].split('pre')[1].split('__')[0]))
+        print(len(old_tickets_sort))
 
 
         tickets_to_be_pushed = []
@@ -120,60 +127,35 @@ def relvals_creation(new):
         for old_ticket in old_tickets_sort:
             ticket = old_ticket
             ticket['cmssw_release'] = new[0][1]
-            #ticket['workflow_ids'] = old_ticket['workflow_ids']
-            #ticket['batch_name'] = 'VUK_TESTING'
-            print(old_ticket['cmssw_release'])
-            print(old_ticket['batch_name'])
-            print(old_ticket['matrix'])
-            print(old_ticket['workflow_ids'])
-            #ticket['matrix'] = old_ticket['matrix']
-            #tickets_to_be_pushed.append(ticket)
-            print()
-            print()
-
-        print()
-        print()
-        print(tickets_to_be_pushed)
-        print()
-        print()
-        #ticket['cmssw_release'] = new[0][1]
-        #ticket['workflow_ids'] = old_tickets[-1]['workflow_ids'] ##########################################################
-        #ticket['batch_name'] = 'TEST'
-        #ticket['matrix'] = tickets[-1]['matrix']
-
-
-       
-        print('Creating a ticket for %s with ids %s' %(ticket['cmssw_release'], ticket['workflow_ids']))
-
-        response = relval.put('tickets', ticket)
-        print()
-        print()
-        print(response)
-        print()
-        print()
-        inner_response = response['response']
-        ticket_prepid = inner_response['prepid']
+            tickets_to_be_pushed.append(ticket)
+        ######################################################## Note for the new relval from which version it was cloned
+        #New tickets have the same values besides 'cmssw_release'
         
-        try:
-            print(ticket_prepid)
-                
-            response_relval = relval.create_relvals(ticket_prepid)
+        for ticket in tickets_to_be_pushed:
+            print('Creating a ticket for %s with ids %s' %(ticket['cmssw_release'], ticket['workflow_ids']))
+        #Looping through all the new tickets that need to be pushed to server
+            response = relval.put('tickets', ticket)
+            inner_response = response['response']
+            ticket_prepid = inner_response['prepid']
+        #Putting the ticket on the server
+            try:
+            #Trying to create relvals
+                print(ticket_prepid)
+                response_relval = relval.create_relvals(ticket_prepid)
 
-            print(response_relval)
-            
+                print(response_relval)
 
-            #ticket_with_relvals = tickets[-1]
-            #ticket_prepid = ticket_with_relvals['prepid']
+                ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
 
-            ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
-
-            for one_relval in ticket_relvals:
-                print('Pushing %s relval to next state' %one_relval['prepid'])
-                if one_relval['status'] == 'new':
-                    relval.next_status(one_relval['prepid'])
-                    relval.next_status(one_relval['prepid'])
-        except:
-            print('It is not possible to either create relvals or push the status from new to submitting')
+                for one_relval in ticket_relvals:
+                    print('Pushing %s relval to next state' %one_relval['prepid'])
+                    if one_relval['status'] == 'new':
+                        relval.next_status(one_relval['prepid'])
+                        relval.next_status(one_relval['prepid'])
+                    #The relval status should be changed from new to submitting,
+                    #which is two steps ahead of new
+            except:
+                print('It is not possible to either create relvals or push the status from new to submitting')
 
 
 def create_relmon():
@@ -184,12 +166,3 @@ def create_relmon():
 new_releases(releases)
 relvals_creation(new)
 #create_relmon()                                    
-
-
-for x in old:
-    print(x)
-for x in new:
-    print(x)                   
-
-    print()
-    print(old[-1])
