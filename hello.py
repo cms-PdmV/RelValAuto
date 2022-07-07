@@ -64,6 +64,7 @@ def new_releases(releases):
     global new
 
     #pattern = 'CMSSW(_\d{1,2}){2}_0(_pre([2-9]|(\d{2,10})))?$'
+    #The regex for catching all the first releases and pres
     pattern = 'CMSSW(_\d{1,2}){2}_0(_pre([2-9]|(\d{2,10})))+$'
     #The regex for fetching all the pres
     
@@ -95,7 +96,7 @@ def new_releases(releases):
         if x[1] not in old:
             new.append(x)           #appending new releases to the list new[]
     ### Sljedeca linija je iskljucivo zbog probe
-    new.append(releases[-1])
+    #new.append(releases[-1])
 
 
     with open('new.txt', 'w') as output_file:
@@ -116,21 +117,35 @@ def relvals_creation(new):
         relval = RelVal()
 
         #old_tickets = relval.get('tickets', query='cmssw_release=' + old[-1])
-        old_tickets = relval.get('tickets', query='cmssw_release=CMSSW_11_2_0_pre3*')
+        old_tickets = relval.get('tickets', query='cmssw_release=CMSSW_12_0_0_pre*')
         #This line gets all old tickets with specified query
         old_tickets_sort = sorted(old_tickets, key=lambda x: tuple(int(i) for i in  x['_id'].split('pre')[1].split('__')[0]))
         print(len(old_tickets_sort))
 
 
         tickets_to_be_pushed = []
-
+        #REGEX FOR TICKETS WITHOUT noPU                           ^((?!noPU).)*$
+        #REGEX FOR TICKETS WITH noPU                               .*(noPU)+.*$
         for old_ticket in old_tickets_sort:
             ticket = old_ticket
             ticket['cmssw_release'] = new[0][1]
+            ticket['batch_name'] = old_ticket['batch_name'] + '_AUTOMATED_CREATION'
             tickets_to_be_pushed.append(ticket)
-        ######################################################## Note for the new relval from which version it was cloned
         #New tickets have the same values besides 'cmssw_release'
-        
+        ######################################################################################
+        with_noPU = ".*(noPU)+.*$"
+        with_PU = ".*(PU)+.*$"
+        PU_array = []
+        noPU_array = []
+
+        for ticket in old_tickets_sort:
+            if re.match(with_PU, ticket['_id']):
+                if re.match(with_noPU, ticket['_id']):
+                    noPU_array.append(ticket)
+                else:
+                    PU_array.append(ticket)
+
+        ######################################################################################
         for ticket in tickets_to_be_pushed:
             print('Creating a ticket for %s with ids %s' %(ticket['cmssw_release'], ticket['workflow_ids']))
         #Looping through all the new tickets that need to be pushed to server
