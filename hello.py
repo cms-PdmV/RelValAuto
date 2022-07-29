@@ -194,7 +194,8 @@ def nopu_full_creation(new):
         #REGEX FOR TICKETS WITH noPU                               .*(noPU)+.*$
         with_noPU = ".*(noPU)+.*$"
         with_PU = ".*(PU)+.*$"
-
+        for ticket in old_tickets_sort:
+            print("Ovo je stari ticket: " + ticket['batch_name'])
 
         for old_ticket in old_tickets_sort:
             if re.match(with_noPU, old_ticket['_id']):
@@ -296,19 +297,20 @@ def nopu_reco_only_creation(new):
         print('There are no new releases')
         sys.exit(1)
     else:
-        print('There is a new release!')
+        #print('There is a new release!')
         #Otherwise, we will need a relval class
         relval = RelVal()
         local_gt_string = "CMSSW_12_5_0_pre3-124X_mcRun3_2022_realistic_v8-v2"
-
-        print("Ovo je noPU niz: ")
-        print(len(noPU))
+        
         output_datasets = []
+        # for ticket in noPU:
+        #     print(ticket['batch_name'])
+
         for ticket in noPU:
-            print("Something")
+            print("Prolazimo kroz noPU array: " + ticket['batch_name'])
             if re.match(".*(RECO)+.*$", ticket['batch_name']):
                 print('Make noPU RECO ticket for %s' %(ticket['cmssw_release']))
-                print(ticket)
+                print(ticket['batch_name'])
                 relvals_of_ticket = relval.get('relvals', query='ticket=' + ticket['prepid'])
                 #print("Ovo je prepid" + ticket['prepid'].split('__AUTOMATED')[0] + ticket['prepid'].split('__AUTOMATED')[1])
 
@@ -330,44 +332,46 @@ def nopu_reco_only_creation(new):
                 #Relvals have output_datasets, not tickets!
 
                 ticket['rewrite_gt_string'] = local_gt_string
-                print()
-                print(ticket)
-                print()
+                # print()
+                # print(ticket)
+                # print()
                 response = relval.put('tickets', ticket)
                 inner_response = response['response']
                 ticket_prepid = inner_response['prepid']
                 #Putting the ticket on the server
-                try:
-                #Trying to create relvals
-                    print(ticket_prepid)
-                    response_relval = relval.create_relvals(ticket_prepid)
+                # try:
+                # #Trying to create relvals
+                #     print(ticket_prepid)
+                #     response_relval = relval.create_relvals(ticket_prepid)
 
-                    print(response_relval)
+                #     print(response_relval)
 
-                    #ticket_relvals = relval.get('relvals', query='ticket=CMSSW_12_5_0_pre3__UPSG_Std*')
-                    ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
-                    #print(*ticket_relvals, sep = "\n \n")
+                #     #ticket_relvals = relval.get('relvals', query='ticket=CMSSW_12_5_0_pre3__UPSG_Std*')
+                #     ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
+                #     #print(*ticket_relvals, sep = "\n \n")
 
-                    for one_relval in ticket_relvals:
-                        print('Pushing %s relval to next state' %one_relval['prepid'])
-                        if one_relval['status'] == 'new':
-                            relval.next_status(one_relval['prepid'])
-                            print("Status pushed once")
-                            relval.next_status(one_relval['prepid'])
-                            print("Status pushed twice")
-                        else:
-                            print("Status is not new")
-                        #The relval status should be changed from new to submitting,
-                        #which is two steps ahead of new
+                #     for one_relval in ticket_relvals:
+                #         print('Pushing %s relval to next state' %one_relval['prepid'])
+                #         if one_relval['status'] == 'new':
+                #             relval.next_status(one_relval['prepid'])
+                #             print("Status pushed once")
+                #             relval.next_status(one_relval['prepid'])
+                #             print("Status pushed twice")
+                #         else:
+                #             print("Status is not new")
+                #         #The relval status should be changed from new to submitting,
+                #         #which is two steps ahead of new
                 
-                    #time.sleep(3*60*60)
+                #     #time.sleep(3*60*60)
 
-                except KeyboardInterrupt as key_inter:
-                    print('The execution of the program was interrupted by keyboard interrupt: ')
-                    print(key_inter)
-                    #sys.exit(2)
-                except:
-                    print("Can't create relvals, push the status to submitting or take GT String!")
+                # except KeyboardInterrupt as key_inter:
+                #     print('The execution of the program was interrupted by keyboard interrupt: ')
+                #     print(key_inter)
+                #     #sys.exit(2)
+                # except:
+                #     print("Can't create relvals, push the status to submitting or take GT String!")
+            else:
+                print("Ovo nije odg ticket")
 
 def pu_creation(pu):
     """
@@ -465,6 +469,19 @@ def pu_full_creation(pu, type):
         global NEW
         global NO_RECO_PU
 
+        print("ODJE POCINJE PU FULL")
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+        print()
+
         #We want to access global variable NO_RECO_PU
         for ticket in pu:
             print("Ticket with the batch name:" + ticket['batch_name'] + "is being operated with")
@@ -519,49 +536,52 @@ def pu_full_creation(pu, type):
         for ticket in NO_RECO_PU:
             print('Make ticket for %s of the type' %(ticket['cmssw_release']))
             print(type)
-            print(len(NO_RECO_PU))
+            print(ticket['batch_name'])
         #Looping through all the new tickets that need to be pushed to server
             response = relval.put('tickets', ticket)
             inner_response = response['response']
             ticket_prepid = inner_response['prepid']
         #Putting the ticket on the server
             print("Got to the try to create relvals part")
-            try:
-            #Trying to create relvals
-                print(ticket_prepid)
-                response_relval = relval.create_relvals(ticket_prepid)
-                print("Relvals created")
+            # try:
+            # #Trying to create relvals
+            #     print(ticket_prepid)
+            #     response_relval = relval.create_relvals(ticket_prepid)
+            #     print("Relvals created")
 
-                print(response_relval)
-                ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
+            #     print(response_relval)
+            #     ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
 
-                for one_relval in ticket_relvals:
-                    print('Pushing %s relval to next state' %one_relval['prepid'])
-                    if one_relval['status'] == 'new':
-                        relval.next_status(one_relval['prepid'])
-                        print("Status pushed once")
-                        relval.next_status(one_relval['prepid'])
-                        print("Status pushed twice")
-                    else:
-                        print("Status is not new")
-                    #The relval status should be changed from new to submitting,
-                    #which is two steps ahead of new
+            #     for one_relval in ticket_relvals:
+            #         print('Pushing %s relval to next state' %one_relval['prepid'])
+            #         if one_relval['status'] == 'new':
+            #             relval.next_status(one_relval['prepid'])
+            #             print("Status pushed once")
+            #             relval.next_status(one_relval['prepid'])
+            #             print("Status pushed twice")
+            #         else:
+            #             print("Status is not new")
+            #         #The relval status should be changed from new to submitting,
+            #         #which is two steps ahead of new
             
-                #time.sleep(3*60*60)
+            #     #time.sleep(3*60*60)
 
-                #all_sub = 0
-                #Making sure all statuses are submitted or done, for the output datasets.
-            except:
-                print("Can't create relvals, push the status to submitting or take GT String!")
+            #     #all_sub = 0
+            #     #Making sure all statuses are submitted or done, for the output datasets.
+            # except:
+            #     print("Can't create relvals, push the status to submitting or take GT String!")
 
 def pu_reco_only_creation(pu):
     global RECO_PU
     global NEW
     for ticket in pu:
-        if ticket['batch_name'].split('_')[-1].startswith('RECO'):
+        batch_name = ticket['batch_name']
+        if re.match('.*(RECO)+.*$', batch_name):
             RECO_PU.append(ticket)
     #For now it should find just one, cause we merged the similar tickets
     relval = RelVal()
+    print("Duzina RECO PU")
+    print(len(RECO_PU))
 
     # #We have created fullsim PU ticket that now can be pushed
     for ticket in RECO_PU:
@@ -571,46 +591,44 @@ def pu_reco_only_creation(pu):
         inner_response = response['response']
         ticket_prepid = inner_response['prepid']
     #Putting the ticket on the server
-        try:
-        #Trying to create relvals
-            print(ticket_prepid)
-            response_relval = relval.create_relvals(ticket_prepid)
+        # try:
+        # #Trying to create relvals
+        #     print(ticket_prepid)
+        #     response_relval = relval.create_relvals(ticket_prepid)
 
-            print(response_relval)
-            ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
+        #     print(response_relval)
+        #     ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
 
-            for one_relval in ticket_relvals:
-                print('Pushing %s relval to next state' %one_relval['prepid'])
-                if one_relval['status'] == 'new':
-                    relval.next_status(one_relval['prepid'])
-                    print("Status pushed once")
-                    relval.next_status(one_relval['prepid'])
-                    print("Status pushed twice")
-                else:
-                    print("Status is not new")
-                #The relval status should be changed from new to submitting,
-                #which is two steps ahead of new
+        #     for one_relval in ticket_relvals:
+        #         print('Pushing %s relval to next state' %one_relval['prepid'])
+        #         if one_relval['status'] == 'new':
+        #             relval.next_status(one_relval['prepid'])
+        #             print("Status pushed once")
+        #             relval.next_status(one_relval['prepid'])
+        #             print("Status pushed twice")
+        #         else:
+        #             print("Status is not new")
+        #         #The relval status should be changed from new to submitting,
+        #         #which is two steps ahead of new
         
-            time.sleep(3*60*60)
-        except KeyboardInterrupt as key_inter:
-            print('The execution of the program was interrupted by keyboard interrupt: ')
-            print(key_inter)
-            #sys.exit(2)
-        except:
-            print("Can't create relvals, push the status to submitting or take GT String!")
+        #     time.sleep(3*60*60)
+        # except KeyboardInterrupt as key_inter:
+        #     print('The execution of the program was interrupted by keyboard interrupt: ')
+        #     print(key_inter)
+        #     #sys.exit(2)
+        # except:
+        #     print("Can't create relvals, push the status to submitting or take GT String!")
 
 
 
 new_releases(RELEASES)
 relval = RelVal()
 #relvals_creation(NEW)
-nopu_full_creation(NEW)
+
 
 print(NEW)
 old_tickets = relval.get('tickets', query='cmssw_release=' + OLD[-1])
 print(len(old_tickets))
-print(len(noPU))
-print(len(PU))
 
 nopu_tickets = relval.get('tickets', query='cmssw_release=' + NEW[0][1] + "*")
 
@@ -621,36 +639,36 @@ GT_STRING_ARR = ['CMSSW_12_5_0_pre2-124X_mcRun3_2022_realistic_HI_v3-v1_____AUTO
                  'CMSSW_12_5_0_pre2-124X_mcRun4_realistic_v4_2026D88PU200_RECOonly-v1_____AUTOMATED_UPSG_Std_2026D88noPU_AUTO_CREATION']
 
 nopu_full_creation(NEW)
-print()
-print()
-print("Funkcija full nopu zavrsila rad")
-print()
-print()
-nopu_reco_only_creation(NEW)
-print()
-print()
-print("Funkcija nopu reco only zavrsila rad")
-print()
-print()
-pu_full_creation(PU, 'HIN')
-print()
-print()
-print("Funkcija pu HIN zavrsila rad")
-print()
-print()
+# print()
+# print()
+# print("Funkcija full nopu zavrsila rad")
+# print()
+# print()
+# nopu_reco_only_creation(NEW)
+# print()
+# print()
+# print("Funkcija nopu reco only zavrsila rad")
+# print()
+# print()
+# pu_full_creation(PU, 'HIN')
+# print()
+# print()
+# print("Funkcija pu HIN zavrsila rad")
+# print()
+# print()
 pu_full_creation(PU, 'UPSG')
 print()
 print()
 print("Funkcija pu UPSG zavrsila rad")
 print()
 print()
-pu_full_creation(PU, 'fullsim')
-print()
-print()
-print("Funkcija pu fullsim zavrsila rad")
-print()
-print()
-pu_reco_only_creation(PU)
+# pu_full_creation(PU, 'fullsim')
+# print()
+# print()
+# print("Funkcija pu fullsim zavrsila rad")
+# print()
+# print()
+# pu_reco_only_creation(PU)
 
 
 
