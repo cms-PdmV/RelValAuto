@@ -12,6 +12,7 @@ import sys
 import requests
 from relval import RelVal
 from relmon import Relmon
+from collections import Counter
 
 
 
@@ -211,14 +212,14 @@ def nopu_full_creation(new):
         #This for loop makes noPU and PU arrays
         #New tickets have the same values besides 'cmssw_release'
 
-        # for ticket in noPU:
-        #     print('Make noPU ticket for %s' %(ticket['cmssw_release']))
-        #     print(ticket)
-        # #Looping through all the new tickets that need to be pushed to server
-        #     if not re.match('.*(RECO)+.*$', ticket['batch_name']):
-        #         response = relval.put('tickets', ticket)
-        #         inner_response = response['response']
-        #         ticket_prepid = inner_response['prepid']
+        for ticket in noPU:
+            print('Make noPU ticket for %s' %(ticket['cmssw_release']))
+            print(ticket)
+        #Looping through all the new tickets that need to be pushed to server
+            if not re.match('.*(RECO)+.*$', ticket['batch_name']):
+                response = relval.put('tickets', ticket)
+                inner_response = response['response']
+                ticket_prepid = inner_response['prepid']
         #Putting the ticket on the server##########################################################################
             # try:
             # #Trying to create relvals
@@ -530,7 +531,9 @@ def pu_full_creation(pu, type):
         print()
         print()
 
-
+        if type == 'UPSG':
+            print("Printing the collection bellow")
+            print(len(NO_RECO_PU))
 
 
         for ticket in NO_RECO_PU:
@@ -570,6 +573,9 @@ def pu_full_creation(pu, type):
             #     #Making sure all statuses are submitted or done, for the output datasets.
             # except:
             #     print("Can't create relvals, push the status to submitting or take GT String!")
+        NO_RECO_PU = []
+
+
 
 def pu_reco_only_creation(pu):
     global RECO_PU
@@ -639,36 +645,36 @@ GT_STRING_ARR = ['CMSSW_12_5_0_pre2-124X_mcRun3_2022_realistic_HI_v3-v1_____AUTO
                  'CMSSW_12_5_0_pre2-124X_mcRun4_realistic_v4_2026D88PU200_RECOonly-v1_____AUTOMATED_UPSG_Std_2026D88noPU_AUTO_CREATION']
 
 nopu_full_creation(NEW)
-# print()
-# print()
-# print("Funkcija full nopu zavrsila rad")
-# print()
-# print()
-# nopu_reco_only_creation(NEW)
-# print()
-# print()
-# print("Funkcija nopu reco only zavrsila rad")
-# print()
-# print()
-# pu_full_creation(PU, 'HIN')
-# print()
-# print()
-# print("Funkcija pu HIN zavrsila rad")
-# print()
-# print()
+print()
+print()
+print("Funkcija full nopu zavrsila rad")
+print()
+print()
+nopu_reco_only_creation(NEW)
+print()
+print()
+print("Funkcija nopu reco only zavrsila rad")
+print()
+print()
+pu_full_creation(PU, 'HIN')
+print()
+print()
+print("Funkcija pu HIN zavrsila rad")
+print()
+print()
 pu_full_creation(PU, 'UPSG')
 print()
 print()
 print("Funkcija pu UPSG zavrsila rad")
 print()
 print()
-# pu_full_creation(PU, 'fullsim')
-# print()
-# print()
-# print("Funkcija pu fullsim zavrsila rad")
-# print()
-# print()
-# pu_reco_only_creation(PU)
+pu_full_creation(PU, 'fullsim')
+print()
+print()
+print("Funkcija pu fullsim zavrsila rad")
+print()
+print()
+pu_reco_only_creation(PU)
 
 
 
