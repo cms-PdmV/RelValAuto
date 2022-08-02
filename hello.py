@@ -12,9 +12,8 @@ import sys
 import requests
 from relval import RelVal
 from relmon import Relmon
-from collections import Counter
 
-
+step_by_step = open("all_runs_step_by_step.txt", "a")
 
 def get_releases():
     """
@@ -102,9 +101,6 @@ def new_releases(releases):
         if rel[1] not in OLD:
             NEW.append(rel)
             #appending new releases to the list new[]
-            ### Sljedeca linija je iskljucivo zbog probe
-            #new.append(releases[-1])
-
 
     with open('new.txt', 'w') as output_file:
         for new_rel in NEW:
@@ -126,7 +122,6 @@ def relvals_creation(new):
         relval = RelVal()
 
         old_tickets = relval.get('tickets', query='cmssw_release=' + OLD[-1])
-        #old_tickets = relval.get('tickets', query='cmssw_release=CMSSW_12_0_0_pre*')
         #This line gets all old tickets with specified query
         old_tickets_sort = sorted(old_tickets, key=lambda x: tuple(int(i) for i in  x['_id'].split('pre')[1].split('__')[0]))
         print(len(old_tickets_sort))
@@ -172,6 +167,30 @@ def relvals_creation(new):
             except:
                 print('It is not possible to create relvals or push the status to submitting')
 
+def creating_relvals(ticket_prepid):
+    """
+    This function creates relvals for the given ticket prepid
+    """
+    step_by_step.write("Trying to create relvals for the ticket with prepid: ")
+    step_by_step.write("ticket_prepid")
+    response_relval = relval.create_relvals(ticket_prepid)
+
+    ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
+
+
+    for one_relval in ticket_relvals:
+        step_by_step.write("\nPushing %s relval to next state\n" %one_relval['prepid'])
+        if one_relval['status'] == 'new':
+            relval.next_status(one_relval['prepid'])
+            step_by_step.write("Status pushed once\n")
+            relval.next_status(one_relval['prepid'])
+            step_by_step.write("Status pushed twice\n")
+        else:
+            step_by_step.write("Status is not new\n")
+        #The relval status should be changed from new to submitting,
+        #which is two steps ahead of new
+
+
 def nopu_full_creation(new):
     """
     This function creates noPU tickets and RelVals. Argument new is array of new releases
@@ -191,12 +210,8 @@ def nopu_full_creation(new):
         #This line gets all old tickets with specified query
         old_tickets_sort = sorted(old_tickets, key=lambda x: tuple(int(i) for i in  x['_id'].split('pre')[1].split('__')[0]))
 
-        #REGEX FOR TICKETS WITHOUT noPU                           ^((?!noPU).)*$
-        #REGEX FOR TICKETS WITH noPU                               .*(noPU)+.*$
-        with_noPU = ".*(noPU)+.*$"
-        with_PU = ".*(PU)+.*$"
-        for ticket in old_tickets_sort:
-            print("Ovo je stari ticket: " + ticket['batch_name'])
+        with_noPU = ".*(noPU)+.*$"      #REGEX FOR TICKETS WITHOUT noPU
+        with_PU = ".*(PU)+.*$"          #REGEX FOR TICKETS WITH noPU
 
         for old_ticket in old_tickets_sort:
             if re.match(with_noPU, old_ticket['_id']):
@@ -212,9 +227,10 @@ def nopu_full_creation(new):
         #This for loop makes noPU and PU arrays
         #New tickets have the same values besides 'cmssw_release'
 
+        step_by_step.write("noPU and PU arrays created\n\n")        
+
         for ticket in noPU:
-            print('Make noPU ticket for %s' %(ticket['cmssw_release']))
-            print(ticket)
+            step_by_step.write("Make noPU ticket for %s\n" %(ticket['cmssw_release']))
         #Looping through all the new tickets that need to be pushed to server
             if not re.match('.*(RECO)+.*$', ticket['batch_name']):
                 response = relval.put('tickets', ticket)
@@ -223,7 +239,8 @@ def nopu_full_creation(new):
         #Putting the ticket on the server##########################################################################
             # try:
             # #Trying to create relvals
-            #     print(ticket_prepid)
+            #     step_by_step.write("Trying to create relvals for the ticket with prepid: ")
+            #     step_by_step.write("ticket_prepid")
             #     response_relval = relval.create_relvals(ticket_prepid)
 
             #     print(response_relval)
@@ -233,17 +250,17 @@ def nopu_full_creation(new):
             #     #print(*ticket_relvals, sep = "\n \n")
 
             #     for one_relval in ticket_relvals:
-            #         print('Pushing %s relval to next state' %one_relval['prepid'])
+            #         step_by_step.write("\nPushing %s relval to next state\n" %one_relval['prepid'])
             #         if one_relval['status'] == 'new':
             #             relval.next_status(one_relval['prepid'])
-            #             print("Status pushed once")
+            #             step_by_step.write("Status pushed once\n")
             #             relval.next_status(one_relval['prepid'])
-            #             print("Status pushed twice")
+            #             step_by_step.write("Status pushed twice\n")
             #         else:
-            #             print("Status is not new")
+            #             step_by_step.write("Status is not new\n")
             #         #The relval status should be changed from new to submitting,
             #         #which is two steps ahead of new
-            
+            #     step_by_step.write("Waiting for statuses to be pushed far enough. (3 hours pause)")
             #     #time.sleep(3*60*60)
 
             #     #all_sub = 0
@@ -251,7 +268,7 @@ def nopu_full_creation(new):
 
             #     # while all_sub == 0:
             #     #     all_sub = 1
-            #     #     print("Checking if all statuses are pushed properly")
+            #     #     step_by_step.write("Checking if all statuses are pushed properly\n")
             #     #     #If it comes across a relval's status not pushed enough times, it pushes it again.
             #     #     #After that program's execution is postponed by 1 hour.
             #     #     for rel in ticket_relvals:
@@ -262,11 +279,11 @@ def nopu_full_creation(new):
             #     #             elif rel['status'] == 'approved':
             #     #                 rel.next_status(rel['prepid'])
             #     #             all_sub = 0
-            #     #             print("Statuses not pushed properly")
+            #     #             step_by_step.write("Statuses not pushed far enough.\n")
             #     #     if all_sub == 0:
-            #     #         print("Waiting for the statuses to complete.")
-            #     #         time.sleep(15)
-            #     # print("Something")
+            #     #         step_by_step.write("Waiting for the statuses to complete. Waiting time: 3 hours\n")
+            #     #         time.sleep(3*60*60)
+            #     # 
 
             #     # while GT_STRING == "":
             #     #     for rel in ticket_relvals:
@@ -280,11 +297,11 @@ def nopu_full_creation(new):
             #     # GT_STRING_ARR.append(GT_STRING)
             #     # GT_STRING = ""
             # except KeyboardInterrupt as key_inter:
-            #     print('The execution of the program was interrupted by keyboard interrupt: ')
-            #     print(key_inter)
+            #     step_by_step.write("The execution of the program was interrupted by keyboard interrupt: \n")
+            #     step_by_step.write(key_inter)
             #     #sys.exit(2)
             # except:
-            #     print("Can't create relvals, push the status to submitting or take GT String!")
+            #     step_by_step.write("Can't create relvals, push the status to submitting or take GT String!\n")
 
 def nopu_reco_only_creation(new):
     """
@@ -625,7 +642,10 @@ def pu_reco_only_creation(pu):
         # except:
         #     print("Can't create relvals, push the status to submitting or take GT String!")
 
-
+step_by_step.write("The program is being executed on the date: ")
+seconds = time.time()
+step_by_step.write(time.ctime(seconds))
+step_by_step.write(". These are the results: \n")
 
 new_releases(RELEASES)
 relval = RelVal()
@@ -676,8 +696,8 @@ print()
 print()
 pu_reco_only_creation(PU)
 
-
-
+step_by_step.write("\n--------------------------------------------------------------------------\n")
+step_by_step.write("--------------------------------------------------------------------------\n")
 
 
 
