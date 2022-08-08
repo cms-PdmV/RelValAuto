@@ -183,15 +183,15 @@ def relval_status_checker(ticket_prepid):
                 step_by_step.write("Statuses are not pushed far enough.\n")
         if all_sub == 0:
             step_by_step.write("Waiting for the statuses to complete. Waiting time: 3 hours\n")
-            time.sleep(3*60*60)
+            #time.sleep(3*60*60)
 
 def gt_string_append(ticket_relvals, ticket_batch_name):
     """
     This function appends gt string for every ticket to the gt strings array. Besides gt string,
     it also adds batch name so we can match the correct noPU tickets with correct PU tickets.
     """
-    global GT_STRING
-    global GT_STRING_ARR
+    #global GT_STRING
+    #global GT_STRING_ARR
     while GT_STRING == "":
         for rel in ticket_relvals:
             if rel['status'] == 'submitted'  or rel['status'] == 'done':
@@ -227,26 +227,26 @@ def nopu_full_creation(new):
                     inner_response = response['response']
                     ticket_prepid = inner_response['prepid']
             #Putting the ticket on the server##########################################################################
-                try:
-                #Trying to create relvals
-                    creating_relvals(ticket_prepid)
-                    step_by_step.write("Waiting for statuses to be pushed far enough. (3 hours pause)")
-                    #time.sleep(3*60*60)
+                # try:
+                # #Trying to create relvals
+                #     creating_relvals(ticket_prepid)
+                #     step_by_step.write("Waiting for statuses to be pushed far enough. (3 hours pause)")
+                #     #time.sleep(3*60*60)
 
-                    #Making sure all statuses are submitted or done, for the output datasets.
-                    relval_status_checker(ticket_prepid)
+                #     #Making sure all statuses are submitted or done, for the output datasets.
+                #     relval_status_checker(ticket_prepid)
 
-                    ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
+                #     ticket_relvals = relval.get('relvals', query='ticket=' + ticket_prepid)
 
-                    #We need to find gt string in the ticket and append it to the gt strings array
-                    ticket_batch_name = ticket['batch_name']
-                    gt_string_append(ticket_relvals, ticket_batch_name)
-                except KeyboardInterrupt as key_inter:
-                    step_by_step.write("The execution of the program was interrupted by keyboard interrupt: \n")
-                    step_by_step.write(key_inter)
-                    #sys.exit(2)
-                except:
-                    step_by_step.write("Can't create relvals, push the status to submitting or take GT String!\n")
+                #     #We need to find gt string in the ticket and append it to the gt strings array
+                #     ticket_batch_name = ticket['batch_name']
+                #     gt_string_append(ticket_relvals, ticket_batch_name)
+                # except KeyboardInterrupt as key_inter:
+                #     step_by_step.write("The execution of the program was interrupted by keyboard interrupt: \n")
+                #     step_by_step.write(key_inter)
+                #     #sys.exit(2)
+                # except:
+                #     step_by_step.write("Can't create relvals, push the status to submitting or take GT String!\n")
         else:
             print("The noPU ticket does not exist.")
 
@@ -291,19 +291,19 @@ def nopu_reco_only_creation(new):
                     inner_response = response['response']
                     ticket_prepid = inner_response['prepid']
                     #Putting the ticket on the server
-                    try:
-                    #Trying to create relvals
-                        creating_relvals(ticket_prepid)
-                        #Pause
+                    # try:
+                    # #Trying to create relvals
+                    #     creating_relvals(ticket_prepid)
+                    #     #Pause
 
-                        #time.sleep(3*60*60)
+                    #     #time.sleep(3*60*60)
 
-                    except KeyboardInterrupt as key_inter:
-                        print('The execution of the program was interrupted by keyboard interrupt: ')
-                        print(key_inter)
-                        #sys.exit(2)
-                    except:
-                        print("Can't create relvals, push the status to submitting or take GT String!")
+                    # except KeyboardInterrupt as key_inter:
+                    #     print('The execution of the program was interrupted by keyboard interrupt: ')
+                    #     print(key_inter)
+                    #     #sys.exit(2)
+                    # except:
+                    #     print("Can't create relvals, push the status to submitting or take GT String!")
                 else:
                     print("This is not a proper ticket")
         else:
@@ -314,6 +314,8 @@ def pu_full_creation(pu, type):
     The function to create PU tickets. Arguments are list of PU tickets and type. Type is a string
     which should be either 'fullsim', 'UPSG' or 'HIN'
     """
+
+    relval = RelVal()
     if type != 'fullsim' and type != 'UPSG' and type != 'HIN':
         print('Type should be either fullsim, UPSG or HIN. Wrong type entered.')
     else:
@@ -327,8 +329,6 @@ def pu_full_creation(pu, type):
                 if batch_name == type and not ticket['batch_name'].split('_')[-2].startswith('RECO'):
                     ticket['cmssw_release'] = NEW[0][1]
                     #For now it should find just one, because we merged the similar tickets
-                    relval = RelVal()
-
                     #nopu_tickets = relval.get('tickets', query='cmssw_release=' + NEW[0][1] + "*")
 
                     #Since we need the noPU tickets before we work out PU tickets, the name is fine
@@ -342,7 +342,7 @@ def pu_full_creation(pu, type):
                             print("Matching gt string found")
                             ticket['rewrite_gt_string'] = gt_string.split('_____')[0]
                             break
-                FULL_PU.append(ticket)
+                    FULL_PU.append(ticket)
                 #We have created fullsim PU ticket that now can be pushed
                 #time.sleep(3*60*60)
         else:
@@ -356,13 +356,13 @@ def pu_full_creation(pu, type):
                 ticket_prepid = inner_response['prepid']
             #Putting the ticket on the server
                 print("Got to the try to create relvals part")
-                try:
-                    ticket_relvals = creating_relvals(ticket_prepid)
-                except:
-                    print("Can't create relvals, push the status to submitting")
-            FULL_PU = []
+                # try:
+                #     ticket_relvals = creating_relvals(ticket_prepid)
+                # except:
+                #     print("Can't create relvals, push the status to submitting")
         else:
             print("Tickets of type PU FULL do not exist.")
+    FULL_PU = []
 
 def pu_reco_only_creation(pu):
     global RECO_PU
@@ -386,16 +386,16 @@ def pu_reco_only_creation(pu):
             inner_response = response['response']
             ticket_prepid = inner_response['prepid']
         #Putting the ticket on the server
-            try:
-                ticket_relvals = creating_relvals(ticket_prepid)
+            # try:
+            #     ticket_relvals = creating_relvals(ticket_prepid)
             
-            #     time.sleep(3*60*60)
-            except KeyboardInterrupt as key_inter:
-                print('The execution of the program was interrupted by keyboard interrupt: ')
-                print(key_inter)
-                sys.exit(2)
-            except:
-                print("Can't create relvals, push the status to submitting or take GT String!")
+            # #     time.sleep(3*60*60)
+            # except KeyboardInterrupt as key_inter:
+            #     print('The execution of the program was interrupted by keyboard interrupt: ')
+            #     print(key_inter)
+            #     sys.exit(2)
+            # except:
+            #     print("Can't create relvals, push the status to submitting or take GT String!")
     else:
         print("The tickets of type PU RECOonly do not exist.")
 
