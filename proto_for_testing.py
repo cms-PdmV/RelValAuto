@@ -124,7 +124,7 @@ def create_nopu_and_pu_arrays(new):
     global step_by_step
 
     #old_tickets = relval.get('tickets', query='cmssw_release=' + OLD[-1])
-    old_tickets = relval.get('tickets', query='cmssw_release=12_4_6*')
+    old_tickets = relval.get('tickets', query='cmssw_release=12_5_0_pre4*')
     ################################## Iskljucivo za testiranje
     #This line gets all old tickets with specified query
     old_tickets_sort = sorted(old_tickets, key=lambda x: tuple(int(i) for i in  x['_id'].split('pre')[1].split('__')[0]))
@@ -135,12 +135,14 @@ def create_nopu_and_pu_arrays(new):
     for old_ticket in old_tickets_sort:
         if re.match(with_noPU, old_ticket['_id']) and old_ticket['batch_name'].startswith("AUTOMATED"):
             ticket = old_ticket
-            ticket['cmssw_release'] = new[0][1]
+            #ticket['cmssw_release'] = new[0][1]
+            ticket['cmssw_release'] = "CMSSW_12_4_6" ######################### For testing
             ticket['batch_name'] = old_ticket['batch_name'] + '_AAA'
             noPU.append(ticket)
         elif re.match(with_PU, old_ticket['_id']):
             ticket = old_ticket
-            ticket['cmssw_release'] = new[0][1]
+            #ticket['cmssw_release'] = new[0][1]
+            ticket['cmssw_release'] = "CMSSW_12_4_6" ######################### For testing
             ticket['batch_name'] = old_ticket['batch_name'] + '_AAA'
             PU.append(ticket)
     #This for loop makes noPU and PU arrays
@@ -337,7 +339,8 @@ def pu_full_creation(pu, type):
                 print("Ticket with the batch name:" + ticket['batch_name'] + "is being operated with")
                 batch_name = ticket['batch_name'].split('_')[1]
                 if batch_name == type and not ticket['batch_name'].split('_')[-2].startswith('RECO'):
-                    ticket['cmssw_release'] = NEW[0][1]
+                    #ticket['cmssw_release'] = NEW[0][1] ################################### For testing
+                    
                     #For now it should find just one, because we merged the similar tickets
                     #nopu_tickets = relval.get('tickets', query='cmssw_release=' + NEW[0][1] + "*")
 
