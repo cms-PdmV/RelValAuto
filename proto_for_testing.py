@@ -124,31 +124,34 @@ def create_nopu_and_pu_arrays(new):
     global step_by_step
 
     #old_tickets = relval.get('tickets', query='cmssw_release=' + OLD[-1])
-    old_tickets = relval.get('tickets', query='cmssw_release=12_5_0_pre4*')
+    old_tickets = relval.get('tickets', query='cmssw_release=12_5_0_pre4')
     ################################## Iskljucivo za testiranje
     #This line gets all old tickets with specified query
-    old_tickets_sort = sorted(old_tickets, key=lambda x: tuple(int(i) for i in  x['_id'].split('pre')[1].split('__')[0]))
+    if len(old_tickets) > 0:
+        old_tickets_sort = sorted(old_tickets, key=lambda x: tuple(int(i) for i in  x['_id'].split('pre')[1].split('__')[0]))
 
-    with_noPU = ".*(noPU)+.*$"      #REGEX FOR TICKETS WITHOUT noPU
-    with_PU = ".*(PU)+.*$"          #REGEX FOR TICKETS WITH noPU
+        with_noPU = ".*(noPU)+.*$"      #REGEX FOR TICKETS WITHOUT noPU
+        with_PU = ".*(PU)+.*$"          #REGEX FOR TICKETS WITH noPU
 
-    for old_ticket in old_tickets_sort:
-        if re.match(with_noPU, old_ticket['_id']) and old_ticket['batch_name'].startswith("AUTOMATED"):
-            ticket = old_ticket
-            #ticket['cmssw_release'] = new[0][1]
-            ticket['cmssw_release'] = "CMSSW_12_4_6" ######################### For testing
-            ticket['batch_name'] = old_ticket['batch_name'] + '_AAA'
-            noPU.append(ticket)
-        elif re.match(with_PU, old_ticket['_id']):
-            ticket = old_ticket
-            #ticket['cmssw_release'] = new[0][1]
-            ticket['cmssw_release'] = "CMSSW_12_4_6" ######################### For testing
-            ticket['batch_name'] = old_ticket['batch_name'] + '_AAA'
-            PU.append(ticket)
-    #This for loop makes noPU and PU arrays
-    #New tickets have the same values besides 'cmssw_release'
+        for old_ticket in old_tickets_sort:
+            if re.match(with_noPU, old_ticket['_id']) and old_ticket['batch_name'].startswith("AUTOMATED"):
+                ticket = old_ticket
+                #ticket['cmssw_release'] = new[0][1]
+                ticket['cmssw_release'] = "CMSSW_12_4_6" ######################### For testing
+                ticket['batch_name'] = old_ticket['batch_name'] + '_AAA'
+                noPU.append(ticket)
+            elif re.match(with_PU, old_ticket['_id']):
+                ticket = old_ticket
+                #ticket['cmssw_release'] = new[0][1]
+                ticket['cmssw_release'] = "CMSSW_12_4_6" ######################### For testing
+                ticket['batch_name'] = old_ticket['batch_name'] + '_AAA'
+                PU.append(ticket)
+        #This for loop makes noPU and PU arrays
+        #New tickets have the same values besides 'cmssw_release'
 
-    step_by_step.write("noPU and PU arrays created\n\n") 
+        step_by_step.write("noPU and PU arrays created\n\n")
+    else:
+        print("The program couldn't fetch any of the tickets, or tickets with this cmssw_release do not exist.")
 
 def creating_relvals(ticket_prepid):
     """
