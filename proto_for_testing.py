@@ -64,10 +64,10 @@ FULL_PU = []
 RECO_PU = []
 noPU = []
 
-CHANGES_STR = open('data.txt').read().split('\n')
-CHANGES = []
-for one_string in CHANGES_STR:
-    CHANGES.append(json.loads(one_string))
+# CHANGES_STR = open('data.txt').read().split('\n')
+# CHANGES = []
+# for one_string in CHANGES_STR:
+#     CHANGES.append(json.loads(one_string))
 
 
 def new_releases(releases):
@@ -420,31 +420,31 @@ def create_relmon():
     new_relmon = {}
     make_relmon = relmon.create(new_relmon)          
 
-def change_properties(ticket):
-    """
-    Reading the html form and making changes to the ticket given as argument.
-    """
-    global CHANGES
-    #All the changes loaded from the file
-    for change in CHANGES:
-        if change['batch_name'] == ticket['batch_name']:
-            #If we have the correct batch name, we make changes
-            for property in change:
-                if not change[property] == "":
-                    #If we changed some property in the form
-                    #It should be changed in the ticket
-                    if property == "workflow_ids_add":
-                        wfs_add = change[property].split("\n")
-                        for wf in wfs_add:
-                            ticket['workflow_ids'].append(float(wf))
-                    elif property == "workflow_ids_remove":
-                        wfs_rem = change[property].split("\n")
-                        for wf in wfs_rem:
-                            if float(wf) in ticket['workflow_ids']:
-                                ticket['workflow_ids'].remove(float(wf))
-                    elif not property == "cmssw_release":
-                        ticket[property] = change[property]
-    return ticket
+# def change_properties(ticket):
+#     """
+#     Reading the html form and making changes to the ticket given as argument.
+#     """
+#     global CHANGES
+#     #All the changes loaded from the file
+#     for change in CHANGES:
+#         if change['batch_name'] == ticket['batch_name']:
+#             #If we have the correct batch name, we make changes
+#             for property in change:
+#                 if not change[property] == "":
+#                     #If we changed some property in the form
+#                     #It should be changed in the ticket
+#                     if property == "workflow_ids_add":
+#                         wfs_add = change[property].split("\n")
+#                         for wf in wfs_add:
+#                             ticket['workflow_ids'].append(float(wf))
+#                     elif property == "workflow_ids_remove":
+#                         wfs_rem = change[property].split("\n")
+#                         for wf in wfs_rem:
+#                             if float(wf) in ticket['workflow_ids']:
+#                                 ticket['workflow_ids'].remove(float(wf))
+#                     elif not property == "cmssw_release":
+#                         ticket[property] = change[property]
+#     return ticket
 
 step_by_step.write("The program is being executed on the date: ")
 seconds = time.time()
