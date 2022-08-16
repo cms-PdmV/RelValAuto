@@ -1,0 +1,5 @@
+# Skip the node modules
+node_modules/
+
+# Skip the data.txt file
+data.txt
