@@ -124,7 +124,7 @@ def create_nopu_and_pu_arrays(new):
     global step_by_step
 
     #old_tickets = relval.get('tickets', query='cmssw_release=' + OLD[-1])
-    old_tickets = relval.get('tickets', query='cmssw_release=12_5_0_pre4')
+    old_tickets = relval.get('tickets', query='cmssw_release=CMSSW_12_5_0_pre4')
     ################################## Iskljucivo za testiranje
     #This line gets all old tickets with specified query
     if len(old_tickets) > 0:
