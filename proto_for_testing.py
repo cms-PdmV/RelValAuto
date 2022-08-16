@@ -243,7 +243,7 @@ def nopu_full_creation(new):
                 #Trying to create relvals
                     creating_relvals(ticket_prepid)
                     step_by_step.write("Waiting for statuses to be pushed far enough. (3 hours pause)")
-                    time.sleep(3*60*60)
+                    time.sleep(30*60)
 
                     #Making sure all statuses are submitted or done, for the output datasets.
                     relval_status_checker(ticket_prepid)
