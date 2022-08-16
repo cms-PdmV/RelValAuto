@@ -125,8 +125,8 @@ def create_nopu_and_pu_arrays(new):
     global PU
     global step_by_step
 
-    old_tickets = relval.get('tickets', query='cmssw_release=' + OLD[-1])
-    #old_tickets = relval.get('tickets', query='cmssw_release=CMSSW_12_5_0_pre4')
+    #old_tickets = relval.get('tickets', query='cmssw_release=' + OLD[-1])
+    old_tickets = relval.get('tickets', query='cmssw_release=CMSSW_12_5_0_pre4*')
     ################################## Iskljucivo za testiranje
     #This line gets all old tickets with specified query
     if len(old_tickets) > 0:
@@ -134,6 +134,9 @@ def create_nopu_and_pu_arrays(new):
 
         with_noPU = ".*(noPU)+.*$"      #REGEX FOR TICKETS WITHOUT noPU
         with_PU = ".*(PU)+.*$"          #REGEX FOR TICKETS WITH noPU
+
+        print(len(old_tickets))
+
 
         for old_ticket in old_tickets_sort:
             if re.match(with_noPU, old_ticket['_id']) and old_ticket['batch_name'].startswith("AUTOMATED"):
