@@ -34,7 +34,7 @@ class MethodRequest(urllib.Request):
 
 
 class RelVal:
-    def __init__(self, debug=False, cookie=None, dev=True):
+    def __init__(self, debug=False, cookie=None, dev=False):
         if dev:
             self.host = 'cms-pdmv-dev.cern.ch'
         else:
