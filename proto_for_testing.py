@@ -48,6 +48,7 @@ def get_releases():
 
     arr_sort = []
     arr_sort = sorted(arr, key=lambda x: tuple(int(i) for i in  x[1].split('_')[1:4]))
+    print("Function get releases finished.")
     return arr_sort
 
 RELEASES = get_releases()
@@ -115,6 +116,7 @@ def new_releases(releases):
     with open('old.txt', 'w') as input_file:
         for rel in releases:
             input_file.write(rel[1] + '\n')           #Updating old releases for next iteration
+    print("Function new releases finished working")
 
 def create_nopu_and_pu_arrays(new):
     #We will need a relval class
@@ -152,6 +154,7 @@ def create_nopu_and_pu_arrays(new):
         step_by_step.write("noPU and PU arrays created\n\n")
     else:
         print("The program couldn't fetch any of the tickets, or tickets with this cmssw_release do not exist.")
+    print("Function create pu and nopu arrays finished.")
 
 def creating_relvals(ticket_prepid):
     """
@@ -175,6 +178,7 @@ def creating_relvals(ticket_prepid):
             step_by_step.write("Status is not new\n")
         #The relval status should be changed from new to submitting,
         #which is two steps ahead of new
+    print("Function creating relvals finished.")
     return ticket_relvals
 
 def relval_status_checker(ticket_prepid):
@@ -198,6 +202,7 @@ def relval_status_checker(ticket_prepid):
         if all_sub == 0:
             step_by_step.write("Waiting for the statuses to complete. Waiting time: 3 hours\n")
             time.sleep(30*60) #################### 30 mins for testing
+    print("Function relval status checker finished.")
 
 def gt_string_append(ticket_relvals, ticket_batch_name):
     """
@@ -217,6 +222,7 @@ def gt_string_append(ticket_relvals, ticket_batch_name):
     GT_STRING = GT_STRING + "_____" + ticket_batch_name.split('_')[1]
     GT_STRING_ARR.append(GT_STRING)
     GT_STRING = ""
+    print("Function GT string append finished")
 
 def nopu_full_creation(new):
     """
@@ -264,6 +270,7 @@ def nopu_full_creation(new):
                     step_by_step.write("Can't create relvals, push the status to submitting or take GT String!\n")
         else:
             print("The noPU ticket does not exist.")
+
 
 def nopu_reco_only_creation(new):
     """
@@ -323,6 +330,9 @@ def nopu_reco_only_creation(new):
                     print("This is not a proper ticket")
         else:
             print("The noPU array is empty!")
+
+
+
 
 def pu_full_creation(pu, type):
     """
