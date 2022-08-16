@@ -124,7 +124,7 @@ def create_nopu_and_pu_arrays(new):
     global step_by_step
 
     #old_tickets = relval.get('tickets', query='cmssw_release=' + OLD[-1])
-    old_tickets = relval.get('tickets', query='cmssw_release=12_4_5_*')
+    old_tickets = relval.get('tickets', query='cmssw_release=12_4_6*')
     ################################## Iskljucivo za testiranje
     #This line gets all old tickets with specified query
     old_tickets_sort = sorted(old_tickets, key=lambda x: tuple(int(i) for i in  x['_id'].split('pre')[1].split('__')[0]))
