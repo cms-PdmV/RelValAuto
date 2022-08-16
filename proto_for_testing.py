@@ -293,6 +293,7 @@ def nopu_reco_only_creation(new):
         if len(noPU) > 0:
             for ticket in noPU:
                 if re.match(".*(RECO)+.*$", ticket['batch_name']):
+                    local_gt_string = ""
                     print('Make noPU RECO ticket for %s' %(ticket['cmssw_release']))
                     print("It's batch name: " + ticket['batch_name'])
                     relvals_of_ticket = relval.get('relvals', query='ticket=' + ticket['prepid'])
