@@ -135,6 +135,7 @@ def create_nopu_and_pu_arrays(new):
         with_noPU = ".*(noPU)+.*$"      #REGEX FOR TICKETS WITHOUT noPU
         with_PU = ".*(PU)+.*$"          #REGEX FOR TICKETS WITH noPU
 
+        print("There are this many old tickets:")
         print(len(old_tickets))
 
 
@@ -158,7 +159,10 @@ def create_nopu_and_pu_arrays(new):
     else:
         print("The program couldn't fetch any of the tickets, or tickets with this cmssw_release do not exist.")
     print("Function create pu and nopu arrays finished.")
-
+    print("**************************")
+    print(len(PU))
+    print(len(noPU))
+    print("**************************")
 def creating_relvals(ticket_prepid):
     """
     This function creates relvals for the given ticket prepid
@@ -334,9 +338,6 @@ def nopu_reco_only_creation(new):
                     print("This is not a proper ticket")
         else:
             print("The noPU array is empty!")
-
-
-
 
 def pu_full_creation(pu, type):
     """
