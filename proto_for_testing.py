@@ -66,8 +66,8 @@ noPU = []
 
 CHANGES_STR = open('data.txt').read().split('\n')
 CHANGES = []
-for str in CHANGES_STR:
-    CHANGES.append(json.loads(str))
+for one_string in CHANGES_STR:
+    CHANGES.append(json.loads(one_string))
 
 
 def new_releases(releases):
