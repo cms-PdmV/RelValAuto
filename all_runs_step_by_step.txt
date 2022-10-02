@@ -1,0 +1,42 @@
+The program is being executed on the date: Tue Aug 16 15:30:21 2022
+These are the results:
+The program is being executed on the date: Tue Aug 16 15:41:03 2022
+These are the results:
+The program is being executed on the date: Tue Aug 16 17:31:19 2022
+These are the results:
+noPU and PU arrays created
+
+Make noPU ticket for CMSSW_12_4_6
+Trying to create relvals for the ticket with prepid: ticket_prepid
+Pushing CMSSW_12_4_6__AUTOMATED_UPSG_Std_2026D88noPU_AAA_AAA-CloseByPGun_CE_H_Coarse_300um-00004 relval to next state
+Can't create relvals, push the status to submitting or take GT String!
+Waiting for statuses to be pushed far enough. (3 hours pause)The program is being executed on the date: Tue Aug 16 17:45:03 2022
+These are the results:
+noPU and PU arrays created
+
+The program is being executed on the date: Tue Aug 16 17:49:00 2022
+These are the results:
+noPU and PU arrays created
+
+The program is being executed on the date: Tue Aug 16 19:35:58 2022
+These are the results:
+The program is being executed on the date: Tue Aug 16 19:36:30 2022
+These are the results:
+noPU and PU arrays created
+
+The program is being executed on the date: Tue Aug 16 19:38:31 2022
+These are the results:
+noPU and PU arrays created
+
+Trying to create relvals for the ticket with prepid: ticket_prepid
+Pushing CMSSW_12_4_6__UPSG_Std_2026D88PU200_RECOonly_AAA-TTbar_14TeV-00001 relval to next state
+Trying to create relvals for the ticket with prepid: ticket_prepid
+Pushing CMSSW_12_4_6__fullsim_PU_2022_14TeV_RECOonly_AAA-TTbar_14TeV-00001 relval to next state
+The program is being executed on the date: Tue Aug 16 19:55:28 2022
+These are the results:
+noPU and PU arrays created
+
+Trying to create relvals for the ticket with prepid: ticket_prepid
+Pushing CMSSW_12_4_6__UPSG_Std_2026D88PU200_RECOonly_AAA-TTbar_14TeV-00002 relval to next state
+Trying to create relvals for the ticket with prepid: ticket_prepid
+Pushing CMSSW_12_4_6__fullsim_PU_2022_14TeV_RECOonly_AAA-TTbar_14TeV-00002 relval to next state
