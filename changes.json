@@ -1,0 +1,1 @@
+{"cmssw_release":"12_5_0_pre4","batch_name":"fullsim_PU_2022","n_factor":"5","recycle_gs":"on","rewrite_gt_string":"CMSSW_something","workflow_ids_add":"11111\n22222","workflow_ids_remove":"33333\n44444\n55555"}

@@ -1,42 +1,465 @@
-The program is being executed on the date: Tue Aug 16 15:30:21 2022
-These are the results:
-The program is being executed on the date: Tue Aug 16 15:41:03 2022
-These are the results:
-The program is being executed on the date: Tue Aug 16 17:31:19 2022
-These are the results:
-noPU and PU arrays created
+File made on 01/08/2022 by Vuk Jovovic
+-----------------------------------------------
+The program is being executed on the date: Fri Aug 26 15:17:05 2022These are the results: 
 
-Make noPU ticket for CMSSW_12_4_6
-Trying to create relvals for the ticket with prepid: ticket_prepid
-Pushing CMSSW_12_4_6__AUTOMATED_UPSG_Std_2026D88noPU_AAA_AAA-CloseByPGun_CE_H_Coarse_300um-00004 relval to next state
-Can't create relvals, push the status to submitting or take GT String!
-Waiting for statuses to be pushed far enough. (3 hours pause)The program is being executed on the date: Tue Aug 16 17:45:03 2022
-These are the results:
-noPU and PU arrays created
 
-The program is being executed on the date: Tue Aug 16 17:49:00 2022
-These are the results:
-noPU and PU arrays created
+ ENTERED CREATE NOPU AND PU ARRAYS 
 
-The program is being executed on the date: Tue Aug 16 19:35:58 2022
-These are the results:
-The program is being executed on the date: Tue Aug 16 19:36:30 2022
-These are the results:
-noPU and PU arrays created
 
-The program is being executed on the date: Tue Aug 16 19:38:31 2022
-These are the results:
-noPU and PU arrays created
+Old tickets fetched from the server.
+The program is being executed on the date: Fri Aug 26 15:17:47 2022These are the results: 
 
-Trying to create relvals for the ticket with prepid: ticket_prepid
-Pushing CMSSW_12_4_6__UPSG_Std_2026D88PU200_RECOonly_AAA-TTbar_14TeV-00001 relval to next state
-Trying to create relvals for the ticket with prepid: ticket_prepid
-Pushing CMSSW_12_4_6__fullsim_PU_2022_14TeV_RECOonly_AAA-TTbar_14TeV-00001 relval to next state
-The program is being executed on the date: Tue Aug 16 19:55:28 2022
-These are the results:
-noPU and PU arrays created
 
-Trying to create relvals for the ticket with prepid: ticket_prepid
-Pushing CMSSW_12_4_6__UPSG_Std_2026D88PU200_RECOonly_AAA-TTbar_14TeV-00002 relval to next state
-Trying to create relvals for the ticket with prepid: ticket_prepid
-Pushing CMSSW_12_4_6__fullsim_PU_2022_14TeV_RECOonly_AAA-TTbar_14TeV-00002 relval to next state
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+The program is being executed on the date: Fri Aug 26 15:18:05 2022These are the results: 
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+The number of fetched tickets is: The program is being executed on the date: Fri Aug 26 16:50:58 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+The program is being executed on the date: Fri Aug 26 16:52:23 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+This ticket is not made before (not in the .txt file) AUTOMATED_UPSG_Std_2026D88noPU
+Try to create relvals for noPU ticket with prepid: CMSSW_12_4_7__AUTOMATED_UPSG_Std_2026D88noPU-00005
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: CMSSW_12_4_7__AUTOMATED_UPSG_Std_2026D88noPU-00005
+Ticket prepid for our relval_status_pushing.py is: CMSSW_12_4_7__AUTOMATED_UPSG_Std_2026D88noPU-00005
+This is the error: The program is being executed on the date: Fri Aug 26 16:56:44 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+Try to create relvals for noPU ticket with prepid: 
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: 
+Ticket prepid for our relval_status_pushing.py is: 
+This is the error: The program is being executed on the date: Fri Aug 26 16:57:41 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+Try to create relvals for noPU ticket with prepid: 
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: 
+Ticket prepid for our relval_status_pushing.py is: 
+The execution of the program was interrupted by keyboard interrupt: 
+The program is being executed on the date: Fri Aug 26 16:59:50 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+Try to create relvals for noPU ticket with prepid: 
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: 
+Ticket prepid for our relval_status_pushing.py is: 
+The execution of the program was interrupted by keyboard interrupt: 
+The program is being executed on the date: Fri Aug 26 17:03:11 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+Try to create relvals for noPU ticket with prepid: 
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: 
+Ticket prepid for our relval_status_pushing.py is: 
+The execution of the program was interrupted by keyboard interrupt: 
+The program is being executed on the date: Fri Aug 26 17:06:38 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+Try to create relvals for noPU ticket with prepid: 
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: 
+Ticket prepid for our relval_status_pushing.py is: 
+The execution of the program was interrupted by keyboard interrupt: 
+The program is being executed on the date: Fri Aug 26 17:07:38 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+Try to create relvals for noPU ticket with prepid: 
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: 
+Ticket prepid for our relval_status_pushing.py is: 
+The execution of the program was interrupted by keyboard interrupt: 
+The program is being executed on the date: Fri Aug 26 17:08:21 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+Try to create relvals for noPU ticket with prepid: 
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: 
+Ticket prepid for our relval_status_pushing.py is: 
+The execution of the program was interrupted by keyboard interrupt: 
+The program is being executed on the date: Fri Aug 26 17:09:23 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+Try to create relvals for noPU ticket with prepid: 
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: 
+Ticket prepid for our relval_status_pushing.py is: 
+The execution of the program was interrupted by keyboard interrupt: 
+The program is being executed on the date: Fri Aug 26 17:09:44 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+Try to create relvals for noPU ticket with prepid: 
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: 
+Ticket prepid for our relval_status_pushing.py is: 
+The execution of the program was interrupted by keyboard interrupt: 
+The program is being executed on the date: Fri Aug 26 17:10:14 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+Try to create relvals for noPU ticket with prepid: 
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: 
+Ticket prepid for our relval_status_pushing.py is: 
+The execution of the program was interrupted by keyboard interrupt: 
+The program is being executed on the date: Fri Aug 26 17:11:07 2022
+
+These are the results: 
+
+
+
+ ENTERED CREATE NOPU AND PU ARRAYS 
+
+
+Old tickets fetched from the server.
+
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU is put to the noPU array
+Ticket with AUTOMATED_HIN_noPU2022 is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_highPU is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV is put to the PU array
+Ticket with AUTOMATED_fullsim_PU_2022_14TeV_RECOonly is put to the PU array
+Ticket with AUTOMATED_UPSG_Std_2026D88PU200_RECOonly is put to the PU array
+Ticket with AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly is put to the noPU array
+Ticket with AUTOMATED_UPSG_Std_2026D88noPU_RECOonly is put to the noPU array
+noPU and PU arrays created 
+
+Make noPU ticket for AUTOMATED_UPSG_Std_2026D88noPU
+
+This ticket is not made before (not in the .txt file) AUTOMATED_UPSG_Std_2026D88noPU
+Try to create relvals for noPU ticket with prepid: CMSSW_12_4_7__AUTOMATED_UPSG_Std_2026D88noPU-00006
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: CMSSW_12_4_7__AUTOMATED_UPSG_Std_2026D88noPU-00006
+Ticket prepid for our relval_status_pushing.py is: CMSSW_12_4_7__AUTOMATED_UPSG_Std_2026D88noPU-00006
+Make noPU ticket for AUTOMATED_HIN_noPU2022
+
+This ticket is not made before (not in the .txt file) AUTOMATED_HIN_noPU2022
+Try to create relvals for noPU ticket with prepid: CMSSW_12_4_7__AUTOMATED_HIN_noPU2022-00007
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: CMSSW_12_4_7__AUTOMATED_HIN_noPU2022-00007
+Ticket prepid for our relval_status_pushing.py is: CMSSW_12_4_7__AUTOMATED_HIN_noPU2022-00007
+Make noPU ticket for AUTOMATED_fullsim_noPU_2022_14TeV_RECOonly
+
+Try to create relvals for noPU ticket with prepid: 
+
+
+
+ ENTERED CREATING RELVALS 
+
+
+Trying to create relvals for the ticket with prepid: 
+Ticket prepid for our relval_status_pushing.py is: 
+The execution of the program was interrupted by keyboard interrupt: 
